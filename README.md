@@ -1,14 +1,18 @@
 # FastfoodNutritionAnalyzer
 
+# FastfoodNutritionAnalyzer
+
 ## Setup Instructions
 
 ### 1. Prerequisites
 
-- Docker installed on your system. (Suggested method due to isolated environment, simplicity, plus everything is automated)
+- Docker installed on your system. (Recommended for isolated environment, ease of setup, and automation)
 - Python 3.11+ (if running locally without Docker).
 - Required Python packages listed in `requirements.txt`.
 
 ### 2. Running the Application with Docker (Recommended)
+
+#### **Steps (Same for Windows, Linux, and macOS)**:
 
 1. **Clone the repository**:
     ```bash
@@ -22,15 +26,17 @@
     docker-compose up
     ```
 
-    This will:
-    - Create a new SQLite database with the fast food nutritional data.
-    - Add Greek translation of the items and classify them into `Main`, `Side`, or `Dessert`.
-    - Start a Dash server to visualize the data.
+   - This will:
+      - Create a new SQLite database with the fast food nutritional data.
+      - Add Greek translations of the items and classify them into `Main`, `Side`, or `Dessert`.
+      - Start a Dash server to visualize the data.
 
 3. **Access the application**:
-    Open your web browser and navigate to `http://localhost:80` to view the visualizations. Note that all the visualizations/plots are interactive, dont be shy and play around with visual drill-downs.
+    Open your web browser and navigate to `http://localhost:80` to view the visualizations. The visualizations/plots are interactive, feel free to explore the visual drill-downs.
 
 ### 3. Running the Application Locally (Without Docker)
+
+#### **For Linux/macOS**:
 
 1. **Clone the repository**:
     ```bash
@@ -40,8 +46,8 @@
 
 2. **Set up a virtual environment**:
     ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    python3 -m venv venv
+    source venv/bin/activate
     ```
 
 3. **Install dependencies**:
@@ -52,6 +58,33 @@
 4. **Run the main script**:
     ```bash
     python src/main.py
+    ```
+
+5. **Access the Dash web application**:
+    Open your web browser and navigate to `http://localhost:80`.
+
+#### **For Windows**:
+
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/OrestisDrow/FastfoodNutritionAnalyzer
+    cd FastfoodNutritionAnalyzer
+    ```
+
+2. **Set up a virtual environment**:
+    ```bash
+    python -m venv venv
+    venv\Scripts\activate
+    ```
+
+3. **Install dependencies**:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4. **Run the main script**:
+    ```bash
+    python src\main.py
     ```
 
 5. **Access the Dash web application**:
@@ -148,6 +181,10 @@ By mapping these centroids to the categories, I ensured that each cluster was ap
 
 ### Conclusion:
 The use of **KMeans** for this task enabled an unsupervised approach to grouping food items based on their nutritional content. The post-clustering interpretation ensured the clusters were meaningfully labeled as **"Main," "Side," and "Dessert"** based on average nutritional values and cluster characteristics. Using **PCA** for visualization further validated the cluster separation.
+
+### Additional Notes
+
+- The project follows clean coding principles, with attention to readability and maintainability. It includes docstrings, type hints, logging and an overall structured project layout in case you want to dive deeper into the code. I aimed it to be as production ready as possible compared to the time given to me. 
 
 ## Future Improvements
 
