@@ -8,7 +8,7 @@
 - Python 3.11+ (if running locally without Docker).
 - Required Python packages listed in `requirements.txt`.
 
-### 2. Running the Application with Docker
+### 2. Running the Application with Docker (Recommended)
 
 1. **Clone the repository**:
     ```bash
@@ -24,11 +24,11 @@
 
     This will:
     - Create a new SQLite database with the fast food nutritional data.
-    - Translate item names into Greek and classify them into `Main`, `Side`, or `Dessert`.
+    - Add Greek translation of the items and classify them into `Main`, `Side`, or `Dessert`.
     - Start a Dash server to visualize the data.
 
 3. **Access the application**:
-    Open your web browser and navigate to `http://localhost:80` to view the visualizations. Note that all the visualizations/plots are interactive, so feel free to play around with visual drill-downs.
+    Open your web browser and navigate to `http://localhost:80` to view the visualizations. Note that all the visualizations/plots are interactive, dont be shy and play around with visual drill-downs.
 
 ### 3. Running the Application Locally (Without Docker)
 
