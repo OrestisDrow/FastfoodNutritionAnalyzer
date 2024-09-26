@@ -2,6 +2,11 @@ import pandas as pd
 import plotly.express as px
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
+from dash.dash_table import DataTable  # Updated import to avoid deprecation warning
+from dash.dash_table import Format  # Only if you're using any formatting helpers
+from plotly.graph_objs import Figure
+from sqlite3 import Connection
+
 
 class FigureMaker:
     """
@@ -9,12 +14,12 @@ class FigureMaker:
     using data from the fastfood database.
     """
 
-    def __init__(self, conn):
+    def __init__(self, conn: Connection) -> None:
         """Initialize the FigureMaker with a database connection."""
-        self.conn = conn
-        self.top_5_restaurants = ['Subway', 'Mcdonalds', 'Sonic', 'Taco Bell', 'Arbys']
+        self.conn: Connection = conn
+        self.top_5_restaurants: list[str] = ['Subway', 'Mcdonalds', 'Sonic', 'Taco Bell', 'Arbys']
 
-    def get_max_calorie_items_fig(self):
+    def get_max_calorie_items_fig(self) -> Figure:
         """
         Generate a scatter plot showing the max calorie items per restaurant.
 
@@ -39,7 +44,7 @@ class FigureMaker:
 
         return fig
 
-    def get_avg_carbohydrates_donut_fig(self):
+    def get_avg_carbohydrates_donut_fig(self) -> Figure:
         """
         Generate a donut chart of average carbohydrates by restaurant.
 
@@ -62,7 +67,7 @@ class FigureMaker:
 
         return fig
 
-    def get_calorie_treemap_fig(self):
+    def get_calorie_treemap_fig(self) -> Figure:
         """
         Generate a treemap of the top 5 calorie items per restaurant.
 
@@ -91,7 +96,7 @@ class FigureMaker:
 
         return fig
 
-    def get_calorie_sunburst_fig(self):
+    def get_calorie_sunburst_fig(self) -> Figure:
         """
         Generate a sunburst plot of the top 5 calorie items per restaurant.
 
@@ -119,7 +124,7 @@ class FigureMaker:
 
         return fig
 
-    def get_pca_clusters_fig(self):
+    def get_pca_clusters_fig(self) -> Figure:
         """
         Generates the PCA plot for visualizing KMeans clusters.
 
@@ -159,3 +164,36 @@ class FigureMaker:
         fig.update_layout(title=None)
 
         return fig
+
+    def get_food_categories_table(self) -> DataTable:
+        """
+        Generates a sortable and scrollable DataTable for the food categories CSV.
+
+        Returns:
+            DataTable: The table showing food categories.
+        """
+        # Load the food_categories.csv into a pandas DataFrame
+        df = pd.read_csv('data/food_categories.csv')
+
+        # Create a Dash DataTable from the DataFrame
+        table = DataTable(
+            id='food-categories-table',
+            columns=[{"name": i, "id": i} for i in df.columns],
+            data=df.to_dict('records'),
+            sort_action="native",  # Enable interactive sorting by clicking on column headers
+            style_table={'height': '400px', 'overflowY': 'auto'},  # Set table height and enable vertical scrolling
+            style_cell={'textAlign': 'left'},  # Align text to the left
+            page_size=len(df),  # Display the whole dataset without pagination
+            fixed_rows={'headers': True},  # Keep headers fixed while scrolling
+            style_header={
+                'backgroundColor': 'white',
+                'fontWeight': 'bold'
+            },
+            style_data={
+                'whiteSpace': 'normal',
+                'height': 'auto'
+            }
+        )
+
+        return table
+    
